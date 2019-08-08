@@ -31,11 +31,17 @@ public class LoginController {
        if(userService.findUser(id,password)){
            User user=userDao.findUserById(id);
            request.getSession().setAttribute("user",user);
-           return "登陆成功";
+           return "redirect:/main.html";
        }
        else{
            model.addAttribute("msg","用户名或密码错误，请重新登录");
        }
+        return "login";
+    }
+
+    @GetMapping(value = {"/user/exit"})
+    public String doLogout(HttpServletRequest request){
+        request.getSession().invalidate();
         return "login";
     }
 }

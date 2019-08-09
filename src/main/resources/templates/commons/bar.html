@@ -71,8 +71,8 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="#" th:href="@{/emps}"
-                th:class="${activeUri=='emps'?'nav-link active':'nav-link'}">
+                <a class="nav-link active" href="#" th:href="@{/users}"
+                th:class="${activeUri=='users'?'nav-link active':'nav-link'}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users">
                         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                         <circle cx="9" cy="7" r="4"></circle>
@@ -162,6 +162,20 @@
         </ul>
     </div>
 </nav>
+<!--内容区顶部空白-->
+<!--填补内容区域顶部-->
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom" th:fragment="bar">
+    <h1 class="h2">Dashboard</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group mr-2">
+            <button class="btn btn-sm btn-outline-secondary"></button>
+            <button class="btn btn-sm btn-outline-secondary"></button>
+        </div>
+        <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+
+        </button>
+    </div>
+</div>
 
 <!-- Icons -->
 <script type="text/javascript" src="asserts/js/feather.min.js" th:src="@{/asserts/js/feather.min.js}"></script>

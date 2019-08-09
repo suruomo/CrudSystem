@@ -6,4 +6,7 @@
     <select id="findUserById" resultType="User" parameterType="Integer">
         SELECT * FROM user WHERE id=#{id}
     </select>
+    <select id="getAll" resultType="User" >
+        SELECT * FROM user
+    </select>
 </mapper>

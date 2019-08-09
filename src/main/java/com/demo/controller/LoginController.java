@@ -3,6 +3,7 @@ package com.demo.controller;
 import com.demo.dao.UserDao;
 import com.demo.model.User;
 import com.demo.service.impl.UserServiceImpl;
+import com.demo.utils.Md5;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

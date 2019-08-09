@@ -7,9 +7,7 @@ public class User {
     private Integer id;
     private String name;
     private String password;
-    private String gmtCreate;
-    private String gmtModified;
-    private String photo;
+    private String token;
 
     public Integer getId() {
         return id;
@@ -35,27 +33,11 @@ public class User {
         this.password = password;
     }
 
-    public String getGmtCreate() {
-        return gmtCreate;
+    public String getToken() {
+        return token;
     }
 
-    public void setGmtCreate(String gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
-
-    public String getGmtModified() {
-        return gmtModified;
-    }
-
-    public void setGmtModified(String gmtModified) {
-        this.gmtModified = gmtModified;
-    }
-
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    public void setToken(String token) {
+        this.token = token;
     }
 }

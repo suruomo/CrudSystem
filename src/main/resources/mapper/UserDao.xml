@@ -18,4 +18,7 @@
         gender=#{gender}
         WHERE id=#{id}
     </update>
+    <delete id="deleteUser" parameterType="Integer" >
+        delete  FROM user WHERE id=#{id}
+    </delete>
 </mapper>

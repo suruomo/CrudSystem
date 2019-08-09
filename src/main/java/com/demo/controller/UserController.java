@@ -5,10 +5,7 @@ import com.demo.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -60,6 +57,12 @@ public class UserController {
     public String updateUser(User user){
         System.out.println("修改的员工数据："+user);
         userDao.updateUser(user);
+        return "redirect:/users";
+    }
+    //员工删除
+    @PostMapping("/user/{id}")
+    public String deleteUser(@PathVariable("id") Integer id){
+        userDao.deleteUser(id);
         return "redirect:/users";
     }
 }

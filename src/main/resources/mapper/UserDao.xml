@@ -9,4 +9,13 @@
     <select id="getAll" resultType="User" >
         SELECT * FROM user
     </select>
+    <insert id="addUser" parameterType="User" >
+        insert into user(name,token,password,gender) values (#{name},null,'111111',#{gender})
+    </insert>
+    <update id="updateUser" parameterType="User" >
+        UPDATE User SET
+        name=#{name},
+        gender=#{gender}
+        WHERE id=#{id}
+    </update>
 </mapper>

@@ -1,16 +1,14 @@
 package com.demo.controller;
 
-import com.demo.dao.UserDao;
+import com.demo.dao.UserMapper;
 import com.demo.model.User;
 import com.demo.service.impl.UserServiceImpl;
-import com.demo.utils.Md5;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class LoginController {
     @Resource
-    private UserDao userDao;
+    private UserMapper userMApper;
     @Resource
     private UserServiceImpl userService;
     @GetMapping(value = {"/","/index"})
@@ -27,10 +25,10 @@ public class LoginController {
     }
 
     @PostMapping(value = {"/user/login"})
-    public String doLogin(@RequestParam("username")Integer id, @RequestParam("password")String password,
+    public String doLogin(@RequestParam("username")Long id, @RequestParam("password")String password,
                           HttpServletRequest request, Model model){
        if(userService.findUser(id,password)){
-           User user=userDao.findUserById(id);
+           User user=userMApper.selectByPrimaryKey(id);
            request.getSession().setAttribute("user",user);
            return "redirect:/main.html";
        }

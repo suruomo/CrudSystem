@@ -1,6 +1,6 @@
 package com.demo.controller;
 
-import com.demo.dao.UserDao;
+import com.demo.dao.UserMapper;
 import com.demo.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,11 +13,11 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    UserDao userDao;
+    UserMapper userMapper;
     //查询所有用户返回列表页面
     @GetMapping("/users")
     public String  list(Model model){
-        List<User> users = userDao.getAll();
+        List<User> users = userMapper.getAll();
         System.out.println(users);
         //放在请求域中
         model.addAttribute("users",users);
@@ -35,18 +35,17 @@ public class UserController {
     @PostMapping("/user")
     public String addUser(User user){
         //来到员工列表页面
-
-        System.out.println("保存的员工信息："+user);
+        System.out.println("保存的员工信息："+user.getEmail());
         //保存员工
-        userDao.addUser(user);
+        userMapper.insertSelective(user);
         // redirect: 表示重定向到一个地址  /代表当前项目路径
         // forward: 表示转发到一个地址
         return "redirect:/users";
     }
     //来到修改页面，查出当前员工，在页面回显
     @GetMapping("/user/{id}")
-    public String toEditPage(@PathVariable("id") Integer id, Model model){
-        User user = userDao.findUserById(id);
+    public String toEditPage(@PathVariable("id") Long id, Model model){
+        User user = userMapper.selectByPrimaryKey(id);
         model.addAttribute("user",user);
         System.out.println(user);
         //回到修改页面(add是一个修改添加二合一的页面);
@@ -56,13 +55,13 @@ public class UserController {
     @PutMapping("/user")
     public String updateUser(User user){
         System.out.println("修改的员工数据："+user);
-        userDao.updateUser(user);
+        userMapper.updateByPrimaryKey(user);
         return "redirect:/users";
     }
     //员工删除
     @PostMapping("/user/{id}")
-    public String deleteUser(@PathVariable("id") Integer id){
-        userDao.deleteUser(id);
+    public String deleteUser(@PathVariable("id") Long id){
+        userMapper.deleteByPrimaryKey(id);
         return "redirect:/users";
     }
 }

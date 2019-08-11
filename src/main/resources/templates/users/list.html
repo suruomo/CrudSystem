@@ -43,21 +43,25 @@
                         <th>id</th>
                         <th>name</th>
                         <th>gender</th>
+                        <th>email</th>
+                        <th>phone number</th>
                         <th>password</th>
                         <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="user:${users}">
-                        <td th:text="${user.id}"></td>
-                        <td th:text="${user.name}"></td>
-                        <td th:text="${user.gender}=='女'?'女':'男'"></td>
+                        <td th:text="${user.userId}"></td>
+                        <td th:text="${user.loginName}"></td>
+                        <td th:text="${user.sex}==0?'男':'女'"></td>
+                        <td th:text="${user.email}"></td>
+                        <td th:text="${user.phonenumber}"></td>
                         <td th:text="${user.password}"></td>
-<!--                        <td th:text="${emp.gender}==0?'女':'男'"></td>-->
+<!--                        <td th:text="${emp.gender}==0?'男':'女'"></td>-->
 <!--                        <td th:text="${#dates.format(emp.birth, 'yyyy-MM-dd HH:mm')}"></td>-->
                         <td>
-                            <a class="btn btn-sm btn-primary" th:href="@{/user/}+${user.id}">编辑</a>
-                            <button name="but" th:attr="del_uri=@{/user/}+${user.id}" class="btn btn-sm btn-danger deleteBtn">删除</button>
+                            <a class="btn btn-sm btn-primary" th:href="@{/user/}+${user.userId}">编辑</a>
+                            <button name="but" th:attr="del_uri=@{/user/}+${user.userId}" class="btn btn-sm btn-danger deleteBtn">删除</button>
                         </td>
                     </tr>
                     </tbody>

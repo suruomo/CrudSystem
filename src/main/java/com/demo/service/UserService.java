@@ -4,5 +4,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface UserService {
-     boolean findUser(Long id, String password);
+     boolean findUser(String loginName, String password);
 }

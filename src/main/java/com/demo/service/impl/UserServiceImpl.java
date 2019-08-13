@@ -12,9 +12,9 @@ import javax.annotation.Resource;
 public class UserServiceImpl implements UserService {
     @Resource
     private UserMapper userMapper;
-    public boolean findUser(Long id, String password) {
+    public boolean findUser(String loginName, String password) {
         String s=new Md5().endode(password);
-        if(userMapper.selectByPrimaryKey(id).getPassword().equals(s)){
+        if(userMapper.selectByPrimaryKey(loginName).getPassword().equals(s)){
             return true;
         }
         else{

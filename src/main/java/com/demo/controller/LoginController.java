@@ -25,10 +25,10 @@ public class LoginController {
     }
 
     @PostMapping(value = {"/user/login"})
-    public String doLogin(@RequestParam("username")Long id, @RequestParam("password")String password,
+    public String doLogin(@RequestParam("username")String loginName, @RequestParam("password")String password,
                           HttpServletRequest request, Model model){
-       if(userService.findUser(id,password)){
-           User user=userMApper.selectByPrimaryKey(id);
+       if(userService.findUser(loginName,password)){
+           User user=userMApper.selectByPrimaryKey(loginName);
            request.getSession().setAttribute("user",user);
            return "redirect:/main.html";
        }

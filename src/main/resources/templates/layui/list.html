@@ -50,7 +50,6 @@
             , url: '/usersData'
             , method: "get"
             , page: true    //true表示分页
-            , limit: 10
             , title: '员工信息'
             , id: 'list'
             , toolbar: '#toolbarDemo'  //开启表格头部工具栏区域
@@ -61,8 +60,8 @@
                     , {field: 'loginName', width: 80, title: 'ID', sort: true}
                     , {field: 'userName', width: 80, title: '用户名'}
                     , {field: 'sex', width: 80, title: '性别', sort: true}
-                    , {field: 'email', width: 80, title: '邮箱'}
-                    , {field: 'phonenumber', title: '电话', width: '30%', minWidth: 100} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                    , {field: 'email', width: 100, title: '邮箱'}
+                    , {field: 'phonenumber', title: '电话',  width: 100} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
                     , {field: 'password', title: '密码', sort: true}
                     , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 180}
                 ]

@@ -33,8 +33,10 @@ public class UserController {
     //查询所有用户返回列表页面
     @ResponseBody
     @GetMapping("/usersData")
-    public Map<String, Object> list(@Param("page") int page, @Param("limit") int limit) throws JsonProcessingException {
-        List<User> users = userMapper.getAll();
+    public Map<String, Object> list(@RequestParam("page") int page, @RequestParam("limit") int limit) throws JsonProcessingException {
+        page=(page-1)*limit;
+        List<User> users = userMapper.getAll(page,limit);
+        int count=userMapper.getCount().size();
         Map<String, Object> map = new HashMap();
         //返回Json
         ObjectMapper mapper = new ObjectMapper();
@@ -44,7 +46,7 @@ public class UserController {
         map.put("code", 0);
         map.put("msg", "");
         map.put("data", json);
-        map.put("count", users.size());
+        map.put("count", count);
         return map;
     }
 

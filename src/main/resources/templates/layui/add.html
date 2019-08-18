@@ -37,7 +37,7 @@
                         <label class="layui-form-label"><span style="color: red; ">*</span>用户名称</label>
                         <div class="layui-input-block">
                             <input type="text" name="userName" lay-verify="required" ay-reqtext="用户名是必填项，岂能为空？"
-                                   th:value="${user!=null}?${user.userName}" autocomplete="off" placeholder="请输入登陆账号"
+                                   th:value="${user!=null}?${user.userName}" autocomplete="off" placeholder="请输入昵称"
                                    class="layui-input">
                         </div>
                     </div>
@@ -141,6 +141,7 @@
             layer.alert(JSON.stringify(data.field), {
                 title: '最终的提交信息'
             })
+
             form.submit();
             return false;
         });

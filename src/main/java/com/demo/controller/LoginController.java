@@ -30,6 +30,7 @@ public class LoginController {
        if(userService.findUser(loginName,password)){
            User user=userMApper.selectByPrimaryKey(loginName);
            request.getSession().setAttribute("user",user);
+           request.getSession().setAttribute("loginName",user.getLoginName());
            return "redirect:/main.html";
        }
        else{

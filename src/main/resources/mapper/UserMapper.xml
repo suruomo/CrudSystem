@@ -238,7 +238,6 @@
     phonenumber = #{phonenumber,jdbcType=VARCHAR},
     sex = #{sex,jdbcType=CHAR},
     avatar = #{avatar,jdbcType=VARCHAR},
-    password = #{password,jdbcType=VARCHAR},
     status = #{status,jdbcType=CHAR},
     del_flag = #{delFlag,jdbcType=CHAR},
     login_ip = #{loginIp,jdbcType=VARCHAR},

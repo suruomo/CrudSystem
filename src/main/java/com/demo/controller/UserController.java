@@ -12,7 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +26,7 @@ public class UserController {
 
     //查询所有用户返回列表页面
     @GetMapping("/users")
-    public String list(Model model) {
+    public String list() {
         return "layui/list";
     }
 
@@ -79,17 +80,17 @@ public class UserController {
 
     //员工修改；需要提交员工id；
     @PutMapping("/user")
-    public String updateUser(User user) {
-        System.out.println("修改的员工数据：" + user.getPhonenumber());
-        System.out.println("修改的员工id：" + user.getLoginName());
+    public String updateUser(HttpServletRequest request,User user) {
+
+        user.setLoginName((String)request.getSession().getAttribute("loginName"));
         userMapper.updateByPrimaryKey(user);
-//        System.out.println("修改后员工数据：" + userMapper.selectByPrimaryKey(n).getPhonenumber());
         return "redirect:/users";
     }
 
     //员工删除
     @PostMapping("/user/{id}")
     public String deleteUser(@PathVariable("id") String loginName) {
+        System.out.printf("进来了删除");
         userMapper.deleteByPrimaryKey(loginName);
         return "redirect:/users";
     }

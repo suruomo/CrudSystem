@@ -1,45 +1,40 @@
 <!DOCTYPE html>
-<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>首页</title>
-    <!-- Bootstrap core CSS -->
-    <link th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script th:src="@{/layui/layui.js}"></script>
+    <link th:rel="stylesheet" th:href="@{/layui/css/layui.css}">
+    <link rel="stylesheet" href="../static/admin/css/weadmin.css">
 </head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
 
-<body>
-<!--引入topbar-->
-<div th:replace="commons/bar::topbar"></div>
-<div class="container-fluid">
-    <div class="row">
-        <!--引入sidebar-->
-        <div th:replace="commons/bar::#sidebar(activeUri='main.html')"></div>
-        <main role="main" class="col-mb'gd-9 ml-sm-auto col-lg-10 pt-3 px-4">
-            <!--引入bar-->
-               <div th:replace="commons/bar::bar"></div>
-        </main>
+    <!--引入topbar-->
+    <div th:replace="commons/bar::topbar"></div>
+    <!--引入sidebar-->
+    <div th:replace="commons/bar::sidebar"></div>
+    <div class="layui-body" style="padding: 35px;border:30px;">
+        <!-- 内容主体区域 -->
+        <div class="layui-btn-group demoTable" style="margin-top:30px;">
+
+        </div>
+
+        </table>
+    </div>
+
+
+    <div class="layui-footer">
+        <!-- 底部固定区域 -->
+        © layui.com - 底部固定区域
     </div>
 </div>
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js" th:src="@{/webjars/jquery/3.3.1/jquery.js}"></script>
-<script type="text/javascript" src="asserts/js/popper.min.js" th:src="@{/webjars/popper.js/1.11.1/dist/popper.js}"></script>
-<script type="text/javascript" src="asserts/js/bootstrap.min.js" th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.js}"></script>
-
-<!-- Icons -->
-<script type="text/javascript" src="asserts/js/feather.min.js" th:src="@{/asserts/js/feather.min.js}"></script>
 <script>
-    feather.replace()
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+
+    });
 </script>
 </body>
-
 </html>

@@ -28,7 +28,7 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
         WebMvcConfigurerAdapter adapter = new WebMvcConfigurerAdapter() {
             @Override
             public void addViewControllers(ViewControllerRegistry registry) {
-             registry.addViewController("/main.html").setViewName("layui/main");
+//             registry.addViewController("/main.html").setViewName("layui/main");
             }
 
             //注册拦截器

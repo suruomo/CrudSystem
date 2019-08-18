@@ -31,14 +31,17 @@ public class LoginController {
            User user=userMApper.selectByPrimaryKey(loginName);
            request.getSession().setAttribute("user",user);
            request.getSession().setAttribute("loginName",user.getLoginName());
-           return "redirect:/main.html";
+           return "redirect:/main";
        }
        else{
            model.addAttribute("msg","用户名或密码错误，请重新登录");
        }
         return "login";
     }
-
+    @GetMapping(value = {"/main"})
+    public String index(){
+        return "main";
+    }
     @GetMapping(value = {"/user/exit"})
     public String doLogout(HttpServletRequest request){
         request.getSession().invalidate();

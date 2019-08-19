@@ -2,18 +2,19 @@ package com.demo.controller;
 
 import com.demo.dao.UserMapper;
 import com.demo.model.User;
+import com.demo.service.UserService;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.sf.json.JSONArray;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.net.URLDecoder;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +24,8 @@ public class UserController {
 
     @Autowired
     UserMapper userMapper;
-
+    @Autowired
+    UserService userService;
     //查询所有用户返回列表页面
     @GetMapping("/users")
     public String list() {
@@ -83,8 +85,6 @@ public class UserController {
     //员工修改；需要提交员工id；
     @PutMapping("/user")
     public String updateUser(HttpServletRequest request,User user) {
-
-        user.setLoginName((String)request.getSession().getAttribute("loginName"));
         userMapper.updateByPrimaryKey(user);
         return "redirect:/users";
     }
@@ -92,8 +92,56 @@ public class UserController {
     //员工删除
     @PostMapping("/user/{id}")
     public String deleteUser(@PathVariable("id") String loginName) {
-        System.out.printf("进来了删除");
         userMapper.deleteByPrimaryKey(loginName);
         return "redirect:/users";
+    }
+
+    //员工批量删除
+    @PostMapping("/user/delete")
+    public String deleteMultiUser(@RequestParam("ids") String ids) {
+        String id[]=ids.split("//");
+        for(int i=0;i<id.length;i++){
+            System.out.println(id[i]);
+            userMapper.deleteByPrimaryKey(id[i]);
+        }
+        return "layui/list";
+    }
+
+    //员工批量导入
+    @PostMapping("/user/upload")
+    @ResponseBody
+    public int upload(@RequestParam MultipartFile file,
+                         HttpServletRequest request, HttpServletResponse response) {
+        int judge = 0;
+        // 判断文件名是否为空
+        if (file == null)
+            return 2;
+        Map<String, Object> map = new HashMap<String, Object>();
+        // 获取文件名
+        String name = file.getOriginalFilename();
+
+        // 判断文件大小、即名称
+        long size = file.getSize();
+        if (name == null || ("").equals(name) && size == 0)
+            return 2;
+        try
+        {
+            // 把文件转换成字节流形式
+            int i=1;
+//            int i = userService.importExcel(name,file);
+            if (i > 0)
+            {
+                judge=1;  //成功
+            }
+            else
+            {
+                String Msg = "批量导入EXCEL失败！"; //失败
+                judge=2;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return judge;
+
     }
 }

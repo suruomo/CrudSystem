@@ -4,6 +4,7 @@ import com.demo.dao.UserMapper;
 import com.demo.service.UserService;
 import com.demo.utils.Md5;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 
@@ -20,5 +21,10 @@ public class UserServiceImpl implements UserService {
         else{
             return false;
         }
+    }
+
+    @Override
+    public int importExcel(String name, MultipartFile file) {
+        return 0;
     }
 }

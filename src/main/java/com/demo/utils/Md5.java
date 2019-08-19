@@ -4,7 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
-public class Md5 {
+public class Md5 {  //Md5加密
     public Md5(){}
     public String endode(String s){
         String str="";
@@ -14,7 +14,6 @@ public class Md5 {
             //生成随机玩意，除非暴力破解否则不可逆
             byte[] bytes = md.digest(s.getBytes());
             str = Base64.getEncoder().encodeToString(bytes);
-            System.out.println("加密后"+str);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
             System.out.println("错误");

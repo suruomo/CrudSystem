@@ -37,15 +37,18 @@
         <button type="button" class="layui-btn layui-btn-danger layui-btn-sm" lay-event="deleteAll"><i
                 class="layui-icon">&#xe640;</i> 批量删除
         </button>
+        <button type="button" class="layui-btn layui-btn-sm" id="test3"><i class="layui-icon">&#xe62f;</i> 批量导入</button>
     </div>
 </script>
 <script>
-    layui.use(['table','jquery','element'] ,function () {
+    layui.use(['table','jquery','element','upload'] ,function () {
         var $= layui.jquery;
         var table = layui.table;
         var element = layui.element;
+        var upload = layui.upload;
+        var exportData = " ";			//定义全局变量
         //初始化
-        table.render({
+        var da=table.render({
             elem: '#idTest'
             , url: '/usersData'
             , method: "get"
@@ -66,7 +69,9 @@
                     , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 180}
                 ]
             ]
+
         });
+
         //监听表格复选框选择
         table.on('checkbox(demo)', function (obj) {
             console.log(obj)
@@ -87,9 +92,6 @@
                             layer.close(index); //再执行关闭
                         }
                     });
-                    return false;
-                    obj.del();
-                    layer.close(index);
                 });
             } else {
                // layer.alert('编辑行：<br>' + JSON.stringify(data));
@@ -112,17 +114,17 @@
                     layer.confirm('真的删除行么', function(index){
                         alert(ids);
                         layer.msg('删除中...', {icon: 16,shade: 0.3,time:3000});
-                        // $.ajax({
-                        //     url:'/user/'+ids,
-                        //     method:'post',
-                        //     dataType:'text',
-                        //     success:function(data){
-                        //         layer.msg("删除成功");
-                        //         obj.del();   //删除对应行（tr）的DOM结构，并更新缓存
-                        //         layer.close(index); //再执行关闭
-                        //     }
-                        // });
-                        return false;
+                        $.ajax({
+                            url:'/user/delete',
+                            method:'post',
+                            dataType:'text',
+                            data:"ids="+ids,
+                            success:function(data){
+                                layer.msg("删除成功");
+                                obj.del();   //删除对应行（tr）的DOM结构，并更新缓存
+                                layer.close(index); //再执行关闭
+                            }
+                        });
                     });
                     break;
             };
@@ -131,6 +133,25 @@
         $('.demoTable .layui-btn').on('click', function () {
             var type = $(this).data('type');
             active[type] ? active[type].call(this) : '';
+        });
+        upload.render({       //文件上传
+            elem: '#test3'
+            ,url: '/user/upload'
+            ,accept: 'file' //普通文件
+            ,exts: 'xls' //允许上传的文件后缀
+            ,done: function(res){//返回值接收
+                if(res=="1"){
+                    layer.msg('导入成功！', {
+                    }, function(){
+                        location.reload();
+                    });
+                }else{
+                    layer.msg('导入失败！', {
+                    }, function(){
+                        location.reload();
+                    });
+                }
+            }
         });
     });
 </script>

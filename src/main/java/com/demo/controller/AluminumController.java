@@ -37,6 +37,7 @@ public class AluminumController {
         Map<String, Object> map = new HashMap();
         //返回Json
         ObjectMapper mapper = new ObjectMapper();
+
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);  //json内对象不为空
         String data = mapper.writeValueAsString(users);
         JSONArray json = JSONArray.fromObject(data);

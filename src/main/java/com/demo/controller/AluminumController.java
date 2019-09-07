@@ -21,12 +21,17 @@ public class AluminumController {
     @Autowired
     AluminumMapper aluminumMapper;
 
+
     //查询所有用户返回列表页面
     @GetMapping("/aluminum")
     public String list() {
         return "aluminum/list";
     }
-
+    //数据添加页面
+    @GetMapping("/aluminum/add")
+    public String add() {
+        return "aluminum/add";
+    }
     //查询所有用户返回列表页面
     @ResponseBody
     @GetMapping("/aluminumData")

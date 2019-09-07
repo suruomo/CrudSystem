@@ -15,13 +15,13 @@
     <div class="layui-body" style="padding: 35px;border:30px;">
         <!-- 内容主体区域 -->
         <div style="padding: 15px;">
-            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 25px;">
-                <legend><h4>基本信息</h4></legend>
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 15px;">
+                <legend><h2>基本信息</h2></legend>
             </fieldset>
 
             <form class="layui-form" th:action="@{/user}"  method="post" id="form">
                 <input type="hidden" name="_method"  value="put" th:if="${user!=null}"/>
-                <input type="hidden" name="loginName"  th:value="${user.loginName}"/>
+                <input type="hidden" name="loginName"  th:value="${session.loginName}"/>
                 <div class="layui-form-item">
                     <div class="layui-inline">
                         <label class="layui-form-label"><span style="color: red; ">*</span>登陆账号</label>

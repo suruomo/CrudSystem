@@ -29,7 +29,7 @@ public class UserController {
     //查询所有用户返回列表页面
     @GetMapping("/users")
     public String list() {
-        return "layui/list";
+        return "user/list";
     }
 
     //查询所有用户返回列表页面
@@ -55,7 +55,7 @@ public class UserController {
     //来到员工添加页面
     @GetMapping("/user")
     public String toAddPage() {
-        return "layui/add";
+        return "user/add";
     }
 
     //员工添加
@@ -79,7 +79,7 @@ public class UserController {
         model.addAttribute("user", user);
         System.out.println(user);
         //回到修改页面(add是一个修改添加二合一的页面);
-        return "layui/add";
+        return "user/add";
     }
 
     //员工修改；需要提交员工id；
@@ -104,7 +104,7 @@ public class UserController {
             System.out.println(id[i]);
             userMapper.deleteByPrimaryKey(id[i]);
         }
-        return "layui/list";
+        return "user/list";
     }
 
     //员工批量导入

@@ -10,7 +10,7 @@
 <body>
 <!--topbar-->
 <div class="layui-header" th:fragment="topbar">
-    <div class="layui-logo">后台管理系统</div>
+    <div class="layui-logo" >民机材料性能数据库</div>
     <!-- 头部区域（可配合layui已有的水平导航） -->
     <ul class="layui-nav layui-layout-left">
         <li class="layui-nav-item"><a href="">控制台</a></li>
@@ -51,8 +51,9 @@
             <li class="layui-nav-item layui-nav-itemed">
                 <a href="javascript:;">铝</a>
                 <dl class="layui-nav-child">
-                    <dd><a th:href="@{/aluminum}">铝数据管理</a></dd>
-                    <dd><a href="javascript:;">导出材料卡</a></dd>
+                    <dd><a th:href="@{/aluminum}"><i class="layui-icon " style="font-size:18px;" >&#xe629;</i>&nbsp;铝数据管理</a></dd>
+                    <dd><a th:href="@{/aluminum/fem}"><i class="layui-icon " style="font-size:18px;" >&#xe629;</i>&nbsp;有限元建模数据库</a></dd>
+                    <dd><a th:href="@{/aluminum/card}"><i class="layui-icon " style="font-size:18px;" >&#xe681;</i>&nbsp;导出材料卡</a></dd>
                 </dl>
             </li>
         </ul>

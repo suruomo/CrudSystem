@@ -32,6 +32,11 @@ public class AluminumController {
     public String add() {
         return "aluminum/add";
     }
+    //数据添加页面
+    @GetMapping("/aluminum/card")
+    public String card() {
+        return "aluminum/card";
+    }
     //查询所有用户返回列表页面
     @ResponseBody
     @GetMapping("/aluminumData")

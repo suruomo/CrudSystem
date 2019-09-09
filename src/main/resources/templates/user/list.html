@@ -39,7 +39,8 @@
         <button type="button" class="layui-btn layui-btn-danger layui-btn-sm" lay-event="deleteAll"><i
                 class="layui-icon">&#xe640;</i> 批量删除
         </button>
-        <button type="button" class="layui-btn layui-btn-sm" id="test3"><i class="layui-icon">&#xe62f;</i> 批量导入</button>
+        <button type="button" class="layui-btn layui-btn-sm"  id="importFile"><i class="layui-icon">&#xe62f;</i> 批量导入</button>
+        <a type="button" class="layui-btn layui-btn-sm"  id="downloadTemplate" th:href="@{download/userTemplate}"><i class="layui-icon">&#xe601;</i> 下载模板</a>
     </div>
 </script>
 <script>
@@ -138,7 +139,7 @@
             active[type] ? active[type].call(this) : '';
         });
         upload.render({       //文件上传
-            elem: '#test3'
+            elem: '#importFile'
             , url: '/user/upload'
             , accept: 'file' //普通文件
             , exts: 'xls' //允许上传的文件后缀

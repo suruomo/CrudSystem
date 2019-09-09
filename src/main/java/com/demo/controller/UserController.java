@@ -15,6 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,13 +28,19 @@ public class UserController {
     UserMapper userMapper;
     @Autowired
     UserService userService;
-    //查询所有用户返回列表页面
+
+
+    /**
+     * 查询所有用户返回列表页面
+     */
     @GetMapping("/users")
     public String list() {
         return "user/list";
     }
 
-    //查询所有用户返回列表页面
+    /**
+     *查询所有用户返回数据
+     */
     @ResponseBody
     @GetMapping("/usersData")
     public Map<String, Object> list(@RequestParam("page") int page, @RequestParam("limit") int limit) throws JsonProcessingException {
@@ -52,27 +60,33 @@ public class UserController {
         return map;
     }
 
-    //来到员工添加页面
+    /**
+     *来到员工添加页面
+     */
     @GetMapping("/user")
     public String toAddPage() {
         return "user/add";
     }
 
-    //员工添加
-    //SpringMVC自动将请求参数和入参对象的属性进行一一绑定；要求请求参数的名字和javaBean入参的对象里面的属性名是一样的
+    /**
+     *员工添加操作
+     * SpringMVC自动将请求参数和入参对象的属性进行一一绑定；要求请求参数的名字和javaBean入参的对象里面的属性名是一样的
+     */
     @PostMapping("/user")
     public String addUser(User user) {
         //来到员工列表页面
         System.out.println("保存的员工信息：" + user.getEmail());
-        //保存员工
-        user.setPassword("xMpCOKC5I4INzFCab3WEmw==");   //默认密码为1
+        //保存员工，默认密码为1
+        user.setPassword("xMpCOKC5I4INzFCab3WEmw==");
         userMapper.insert(user);
         // redirect: 表示重定向到一个地址  /代表当前项目路径
         // forward: 表示转发到一个地址
         return "redirect:/users";
     }
 
-    //来到修改页面，查出当前员工，在页面回显
+    /**
+     *来到修改页面，查出当前员工，在页面回显
+     */
     @GetMapping("/user/{id}")
     public String toEditPage(@PathVariable("id") String loginName, Model model) {
         User user = userMapper.selectByPrimaryKey(loginName);
@@ -82,21 +96,27 @@ public class UserController {
         return "user/add";
     }
 
-    //员工修改；需要提交员工id；
+    /**
+     * 员工修改:表单需要提交员工id
+     */
     @PutMapping("/user")
     public String updateUser(HttpServletRequest request,User user) {
         userMapper.updateByPrimaryKey(user);
         return "redirect:/users";
     }
 
-    //员工删除
+    /**
+     * 员工删除
+     */
     @PostMapping("/user/{id}")
     public String deleteUser(@PathVariable("id") String loginName) {
         userMapper.deleteByPrimaryKey(loginName);
         return "redirect:/users";
     }
 
-    //员工批量删除
+    /**
+     *  员工批量删除
+     */
     @PostMapping("/user/delete")
     public String deleteMultiUser(@RequestParam("ids") String ids) {
         String id[]=ids.split("//");
@@ -106,8 +126,37 @@ public class UserController {
         }
         return "user/list";
     }
-
-    //员工批量导入
+    /**
+     *  员工批量导入模板下载
+     */
+    @GetMapping("/download/userTemplate")
+    public void downloadUserTemplate(HttpServletResponse response,HttpServletRequest request) throws IOException {
+        //获取输入流，原始模板位置
+        String  filePath = getClass().getResource("/templates/template/metal.xlsx").getPath();
+        InputStream bis = new BufferedInputStream(new FileInputStream(new File(filePath)));
+        //假如以中文名下载的话，设置下载文件名称
+        String filename = "金属数据导入模板.xls";
+        //转码，免得文件名中文乱码
+        filename = URLEncoder.encode(filename,"UTF-8");
+        //设置文件下载头
+        response.addHeader("Content-Disposition", "attachment;filename=" + filename);
+        //1.设置文件ContentType类型，这样设置，会自动判断下载文件类型
+        response.setContentType("multipart/form-data");
+        BufferedOutputStream out = new BufferedOutputStream(response.getOutputStream());
+        int len = 0;
+        while((len = bis.read()) != -1){
+            out.write(len);
+            out.flush();
+        }
+        out.close();
+    }
+    /**
+     * 员工批量导入
+     * @param file
+     * @param request
+     * @param response
+     * @return
+     */
     @PostMapping("/user/upload")
     @ResponseBody
     public int upload(@RequestParam MultipartFile file,

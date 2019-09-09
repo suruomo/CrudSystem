@@ -39,6 +39,7 @@
         <button type="button" class="layui-btn layui-btn-danger layui-btn-sm" lay-event="deleteAll"><i
                 class="layui-icon">&#xe640;</i> 批量删除
         </button>
+        <button type="button" class="layui-btn layui-btn-sm" id="importFile" type="file"><i class="layui-icon">&#xe62f;</i> 批量导入</button>
     </div>
 </script>
 <script>
@@ -139,6 +140,23 @@
         $('.demoTable .layui-btn').on('click', function () {
             var type = $(this).data('type');
             active[type] ? active[type].call(this) : '';
+        });
+        upload.render({       //文件上传
+            elem: '#test3'
+            , url: '/aluminum/upload'
+            , accept: 'file' //普通文件
+            , exts: 'xls' //允许上传的文件后缀
+            , done: function (res) {//返回值接收
+                if (res == "1") {
+                    layer.msg('导入成功！', {}, function () {
+                        location.reload();
+                    });
+                } else {
+                    layer.msg('导入失败！', {}, function () {
+                        location.reload();
+                    });
+                }
+            }
         });
     });
 </script>

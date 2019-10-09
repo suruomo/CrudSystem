@@ -12,14 +12,14 @@ import java.util.Locale;
  * LocaleResolver，其主要作用在于根据不同的用户区域展示不同的视图
  */
 public class MyLocaleResolver implements LocaleResolver {
-    
+
     @Override
     public Locale resolveLocale(HttpServletRequest request) {      //设置解析的语言代码
         String l = request.getParameter("l");
         Locale locale = Locale.getDefault();
-        if(!StringUtils.isEmpty(l)){     //若区域信息不为空
+        if (!StringUtils.isEmpty(l)) {     //若区域信息不为空
             String[] split = l.split("_");    //使用下划线分割
-            locale = new Locale(split[0],split[1]);    //（语言代码，国家代码）
+            locale = new Locale(split[0], split[1]);    //（语言代码，国家代码）
         }
         return locale;
     }

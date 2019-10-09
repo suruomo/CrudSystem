@@ -18,7 +18,7 @@
             <fieldset class="layui-elem-field layui-field-title" style="margin-top: 15px;">
                 <legend><h2>铝数据基本信息</h2></legend>
             </fieldset>
-            <form class="layui-form" th:action="@{/aluminum}"  method="post" id="form">
+            <form class="layui-form" th:action="@{/aluminum}" method="post" id="form">
                 <div class="layui-form-item">
                     <fieldset class="layui-elem-field">
                         <legend><h6 style="color: #c82333">CSMMBR_NAME组成</h6></legend>
@@ -34,7 +34,8 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label"><span style="color: red; "></span>Specification</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="SPECIFICATION" lay-verify="required" ay-reqtext="Specification是必填项，岂能为空？"
+                                    <input type="text" name="SPECIFICATION" lay-verify="required"
+                                           ay-reqtext="Specification是必填项，岂能为空？"
                                            placeholder="请输入Specification"
                                            class="layui-input">
                                 </div>
@@ -97,13 +98,13 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label"><span style="color: red; "></span>最小厚度</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="TH_MIN" class="layui-input" >
+                                    <input type="text" name="TH_MIN" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-inline">
                                 <label class="layui-form-label"><span style="color: red; "></span>最大厚度</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="TH_MAX" class="layui-input" >
+                                    <input type="text" name="TH_MAX" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-inline">
@@ -140,13 +141,13 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label"><span style="color: red; "></span>温度</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="TEMPERATURE" class="layui-input" >
+                                    <input type="text" name="TEMPERATURE" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-inline">
                                 <label class="layui-form-label"><span style="color: red; "></span>密度</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="DENSITY" class="layui-input" >
+                                    <input type="text" name="DENSITY" class="layui-input">
                                 </div>
                             </div>
                         </div>
@@ -159,60 +160,61 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label"><span style="color: red; "></span>拉伸杨氏模量</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="E" class="layui-input" >
+                                    <input type="text" name="E" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-inline">
                                 <label class="layui-form-label"><span style="color: red; "></span>压缩杨氏模量</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="E_C" class="layui-input" >
+                                    <input type="text" name="E_C" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-inline">
                                 <label class="layui-form-label"><span style="color: red; "></span>剪切应力极限</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="F_SU" class="layui-input" >
+                                    <input type="text" name="F_SU" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-inline">
                                 <label class="layui-form-label"><span style="color: red; "></span>压缩屈服</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="F_CY" class="layui-input" >
+                                    <input type="text" name="F_CY" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-inline">
                                 <label class="layui-form-label"><span style="color: red; "></span>剪切模量</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="G" class="layui-input" >
+                                    <input type="text" name="G" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-inline">
                                 <label class="layui-form-label"><span style="color: red; "></span>拉伸应力极限</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="F_TU" class="layui-input" >
+                                    <input type="text" name="F_TU" class="layui-input">
                                 </div>
-                            </div> <div class="layui-inline">
-                            <label class="layui-form-label"><span style="color: red; "></span>拉伸屈服</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="F_TY" class="layui-input" >
                             </div>
-                        </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label"><span style="color: red; "></span>拉伸屈服</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="F_TY" class="layui-input">
+                                </div>
+                            </div>
                             <div class="layui-inline">
                                 <label class="layui-form-label"><span style="color: red; "></span>泊松比</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="NU" class="layui-input" >
+                                    <input type="text" name="NU" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-inline">
                                 <label class="layui-form-label"><span style="color: red; "></span>延展率</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="E_R" class="layui-input" >
+                                    <input type="text" name="E_R" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-inline">
                                 <label class="layui-form-label"><span style="color: red; "></span>热膨胀系数</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="A" class="layui-input" >
+                                    <input type="text" name="A" class="layui-input">
                                 </div>
                             </div>
                         </div>
@@ -236,8 +238,8 @@
     </div>
 </div>
 <script>
-    layui.use(['form', 'layedit', 'laydate', 'jquery','element'], function () {
-        var $= layui.jquery;
+    layui.use(['form', 'layedit', 'laydate', 'jquery', 'element'], function () {
+        var $ = layui.jquery;
         var form = layui.form
             , layer = layui.layer
             , layedit = layui.layedit

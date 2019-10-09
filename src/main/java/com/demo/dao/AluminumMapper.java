@@ -56,5 +56,5 @@ public interface AluminumMapper {
 
     List<Aluminum> getAll(int page, int limit);
 
-    List<Aluminum>  getCount();
+    List<Aluminum> getCount();
 }

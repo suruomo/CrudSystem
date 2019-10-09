@@ -27,23 +27,26 @@ public class AluminumController {
     public String list() {
         return "aluminum/list";
     }
+
     //数据添加页面
     @GetMapping("/aluminum/add")
     public String add() {
         return "aluminum/add";
     }
+
     //数据添加页面
     @GetMapping("/aluminum/card")
     public String card() {
         return "aluminum/card";
     }
+
     //查询所有用户返回列表页面
     @ResponseBody
     @GetMapping("/aluminumData")
     public Map<String, Object> list(@RequestParam("page") int page, @RequestParam("limit") int limit) throws JsonProcessingException {
-        page=(page-1)*limit;
-        List<Aluminum> users = aluminumMapper.getAll(page,limit);
-        int count=aluminumMapper.getCount().size();
+        page = (page - 1) * limit;
+        List<Aluminum> users = aluminumMapper.getAll(page, limit);
+        int count = aluminumMapper.getCount().size();
         Map<String, Object> map = new HashMap();
         //返回Json
         ObjectMapper mapper = new ObjectMapper();

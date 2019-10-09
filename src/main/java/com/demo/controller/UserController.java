@@ -2,7 +2,7 @@ package com.demo.controller;
 
 import com.demo.dao.UserMapper;
 import com.demo.model.User;
-import com.demo.service.UserService;
+import com.demo.utils.UploadFile;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -24,11 +25,10 @@ import java.util.Map;
 @Controller
 public class UserController {
 
-    @Autowired
+    @Resource
     UserMapper userMapper;
-    @Autowired
-    UserService userService;
 
+    UploadFile uploadFile;
 
     /**
      * 查询所有用户返回列表页面
@@ -39,14 +39,14 @@ public class UserController {
     }
 
     /**
-     *查询所有用户返回数据
+     * 查询所有用户返回数据
      */
     @ResponseBody
     @GetMapping("/usersData")
     public Map<String, Object> list(@RequestParam("page") int page, @RequestParam("limit") int limit) throws JsonProcessingException {
-        page=(page-1)*limit;
-        List<User> users = userMapper.getAll(page,limit);
-        int count=userMapper.getCount().size();
+        page = (page - 1) * limit;
+        List<User> users = userMapper.getAll(page, limit);
+        int count = userMapper.getCount();
         Map<String, Object> map = new HashMap();
         //返回Json
         ObjectMapper mapper = new ObjectMapper();
@@ -61,7 +61,7 @@ public class UserController {
     }
 
     /**
-     *来到员工添加页面
+     * 来到员工添加页面
      */
     @GetMapping("/user")
     public String toAddPage() {
@@ -69,7 +69,7 @@ public class UserController {
     }
 
     /**
-     *员工添加操作
+     * 员工添加操作
      * SpringMVC自动将请求参数和入参对象的属性进行一一绑定；要求请求参数的名字和javaBean入参的对象里面的属性名是一样的
      */
     @PostMapping("/user")
@@ -85,11 +85,11 @@ public class UserController {
     }
 
     /**
-     *来到修改页面，查出当前员工，在页面回显
+     * 来到修改页面，查出当前员工，在页面回显
      */
     @GetMapping("/user/{id}")
-    public String toEditPage(@PathVariable("id") String loginName, Model model) {
-        User user = userMapper.selectByPrimaryKey(loginName);
+    public String toEditPage(@PathVariable("id") String userId, Model model) {
+        User user = userMapper.selectByPrimaryKey(userId);
         model.addAttribute("user", user);
         System.out.println(user);
         //回到修改页面(add是一个修改添加二合一的页面);
@@ -100,7 +100,7 @@ public class UserController {
      * 员工修改:表单需要提交员工id
      */
     @PutMapping("/user")
-    public String updateUser(HttpServletRequest request,User user) {
+    public String updateUser(HttpServletRequest request, User user) {
         userMapper.updateByPrimaryKey(user);
         return "redirect:/users";
     }
@@ -115,82 +115,65 @@ public class UserController {
     }
 
     /**
-     *  员工批量删除
+     * 员工批量删除
      */
     @PostMapping("/user/delete")
     public String deleteMultiUser(@RequestParam("ids") String ids) {
-        String id[]=ids.split("//");
-        for(int i=0;i<id.length;i++){
+        String id[] = ids.split("//");
+        for (int i = 0; i < id.length; i++) {
             System.out.println(id[i]);
             userMapper.deleteByPrimaryKey(id[i]);
         }
         return "user/list";
     }
+
     /**
-     *  员工批量导入模板下载
+     * 员工批量导入模板下载
      */
     @GetMapping("/download/userTemplate")
-    public void downloadUserTemplate(HttpServletResponse response,HttpServletRequest request) throws IOException {
+    public void downloadUserTemplate(HttpServletResponse response, HttpServletRequest request) throws IOException {
         //获取输入流，原始模板位置
-        String  filePath = getClass().getResource("/templates/template/metal.xlsx").getPath();
+        String filePath = getClass().getResource("/templates/template/metal.xlsx").getPath();
         InputStream bis = new BufferedInputStream(new FileInputStream(new File(filePath)));
         //假如以中文名下载的话，设置下载文件名称
         String filename = "金属数据导入模板.xls";
         //转码，免得文件名中文乱码
-        filename = URLEncoder.encode(filename,"UTF-8");
+        filename = URLEncoder.encode(filename, "UTF-8");
         //设置文件下载头
         response.addHeader("Content-Disposition", "attachment;filename=" + filename);
         //1.设置文件ContentType类型，这样设置，会自动判断下载文件类型
         response.setContentType("multipart/form-data");
         BufferedOutputStream out = new BufferedOutputStream(response.getOutputStream());
         int len = 0;
-        while((len = bis.read()) != -1){
+        while ((len = bis.read()) != -1) {
             out.write(len);
             out.flush();
         }
         out.close();
     }
+
     /**
      * 员工批量导入
+     *
      * @param file
-     * @param request
-     * @param response
      * @return
      */
     @PostMapping("/user/upload")
     @ResponseBody
-    public int upload(@RequestParam MultipartFile file,
-                         HttpServletRequest request, HttpServletResponse response) {
-        int judge = 0;
-        // 判断文件名是否为空
-        if (file == null)
-            return 2;
-        Map<String, Object> map = new HashMap<String, Object>();
-        // 获取文件名
-        String name = file.getOriginalFilename();
-
-        // 判断文件大小、即名称
-        long size = file.getSize();
-        if (name == null || ("").equals(name) && size == 0)
-            return 2;
-        try
-        {
-            // 把文件转换成字节流形式
-            int i=1;
-//            int i = userService.importExcel(name,file);
-            if (i > 0)
-            {
-                judge=1;  //成功
-            }
-            else
-            {
-                String Msg = "批量导入EXCEL失败！"; //失败
-                judge=2;
+    public int uploadPartMember(@RequestParam("file") MultipartFile file) {
+        try {
+            if (file != null) {
+                //成功上传
+                int result = uploadFile.uploadUser(file, file.getName());
+                return 1;
+            } else {
+                //文件为空
+                return 0;
             }
         } catch (Exception e) {
             e.printStackTrace();
+            //上传出现异常，请稍后重试
+            return 3;
         }
-        return judge;
-
     }
 }

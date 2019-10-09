@@ -128,15 +128,11 @@ public class DruidConfig {
     }
 
 
-
     @Bean
     public PlatformTransactionManager transactionManager() throws SQLException {
         return new DataSourceTransactionManager(druidDataSource());
 
     }
-
-
-
 
 
 }

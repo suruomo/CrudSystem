@@ -2,24 +2,36 @@ package com.demo.component;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  * 登陆检查:登陆拦截器
+ *
+ * @author 苏若墨
  */
 public class LoginHandlerInterceptor implements HandlerInterceptor {
-    //目标方法执行之前
+
+    /**
+     * 目标方法执行之前
+     *
+     * @param request
+     * @param response
+     * @param handler
+     * @return
+     * @throws Exception
+     */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        Object user = request.getSession().getAttribute("user");
-        if(user == null){
+//        Object user = request.getSession().getAttribute("user");
+        if (request.getSession().getAttribute("user") == null) {
             //未登陆，返回登陆页面
-            request.setAttribute("msg","没有权限请先登陆");
-            request.getRequestDispatcher("/login.html").forward(request,response);
+            request.setAttribute("msg", "没有权限请先登陆");
+            request.getRequestDispatcher("/").forward(request, response);
             return false;
-        }else{
+        } else {
             //已登陆，放行请求
             return true;
         }

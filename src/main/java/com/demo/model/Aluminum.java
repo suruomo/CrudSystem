@@ -166,7 +166,6 @@ public class Aluminum {
      * This method returns the value of the database column aluminum.ID
      *
      * @return the value of aluminum.ID
-     *
      * @mbggenerated
      */
     public Integer getId() {
@@ -178,7 +177,6 @@ public class Aluminum {
      * This method sets the value of the database column aluminum.ID
      *
      * @param id the value for aluminum.ID
-     *
      * @mbggenerated
      */
     public void setId(Integer id) {
@@ -190,7 +188,6 @@ public class Aluminum {
      * This method returns the value of the database column aluminum.CSMMBR_NAME
      *
      * @return the value of aluminum.CSMMBR_NAME
-     *
      * @mbggenerated
      */
     public String getCsmmbrName() {
@@ -202,7 +199,6 @@ public class Aluminum {
      * This method sets the value of the database column aluminum.CSMMBR_NAME
      *
      * @param csmmbrName the value for aluminum.CSMMBR_NAME
-     *
      * @mbggenerated
      */
     public void setCsmmbrName(String csmmbrName) {
@@ -214,7 +210,6 @@ public class Aluminum {
      * This method returns the value of the database column aluminum.FAMILY
      *
      * @return the value of aluminum.FAMILY
-     *
      * @mbggenerated
      */
     public String getFamily() {
@@ -226,7 +221,6 @@ public class Aluminum {
      * This method sets the value of the database column aluminum.FAMILY
      *
      * @param family the value for aluminum.FAMILY
-     *
      * @mbggenerated
      */
     public void setFamily(String family) {
@@ -238,7 +232,6 @@ public class Aluminum {
      * This method returns the value of the database column aluminum.SPECIFICATION
      *
      * @return the value of aluminum.SPECIFICATION
-     *
      * @mbggenerated
      */
     public String getSpecification() {
@@ -250,7 +243,6 @@ public class Aluminum {
      * This method sets the value of the database column aluminum.SPECIFICATION
      *
      * @param specification the value for aluminum.SPECIFICATION
-     *
      * @mbggenerated
      */
     public void setSpecification(String specification) {
@@ -262,7 +254,6 @@ public class Aluminum {
      * This method returns the value of the database column aluminum.FORM
      *
      * @return the value of aluminum.FORM
-     *
      * @mbggenerated
      */
     public String getForm() {
@@ -274,7 +265,6 @@ public class Aluminum {
      * This method sets the value of the database column aluminum.FORM
      *
      * @param form the value for aluminum.FORM
-     *
      * @mbggenerated
      */
     public void setForm(String form) {
@@ -286,7 +276,6 @@ public class Aluminum {
      * This method returns the value of the database column aluminum.TEMPER
      *
      * @return the value of aluminum.TEMPER
-     *
      * @mbggenerated
      */
     public String getTemper() {
@@ -298,7 +287,6 @@ public class Aluminum {
      * This method sets the value of the database column aluminum.TEMPER
      *
      * @param temper the value for aluminum.TEMPER
-     *
      * @mbggenerated
      */
     public void setTemper(String temper) {
@@ -310,7 +298,6 @@ public class Aluminum {
      * This method returns the value of the database column aluminum.TEMPERATURE
      *
      * @return the value of aluminum.TEMPERATURE
-     *
      * @mbggenerated
      */
     public String getTemperature() {
@@ -322,7 +309,6 @@ public class Aluminum {
      * This method sets the value of the database column aluminum.TEMPERATURE
      *
      * @param temperature the value for aluminum.TEMPERATURE
-     *
      * @mbggenerated
      */
     public void setTemperature(String temperature) {
@@ -334,7 +320,6 @@ public class Aluminum {
      * This method returns the value of the database column aluminum.DENSITY
      *
      * @return the value of aluminum.DENSITY
-     *
      * @mbggenerated
      */
     public String getDensity() {
@@ -346,7 +331,6 @@ public class Aluminum {
      * This method sets the value of the database column aluminum.DENSITY
      *
      * @param density the value for aluminum.DENSITY
-     *
      * @mbggenerated
      */
     public void setDensity(String density) {
@@ -358,7 +342,6 @@ public class Aluminum {
      * This method returns the value of the database column aluminum.BOOKS
      *
      * @return the value of aluminum.BOOKS
-     *
      * @mbggenerated
      */
     public String getBooks() {
@@ -370,7 +353,6 @@ public class Aluminum {
      * This method sets the value of the database column aluminum.BOOKS
      *
      * @param books the value for aluminum.BOOKS
-     *
      * @mbggenerated
      */
     public void setBooks(String books) {
@@ -382,7 +364,6 @@ public class Aluminum {
      * This method returns the value of the database column aluminum.AIRCRAFTID
      *
      * @return the value of aluminum.AIRCRAFTID
-     *
      * @mbggenerated
      */
     public String getAircraftid() {
@@ -394,7 +375,6 @@ public class Aluminum {
      * This method sets the value of the database column aluminum.AIRCRAFTID
      *
      * @param aircraftid the value for aluminum.AIRCRAFTID
-     *
      * @mbggenerated
      */
     public void setAircraftid(String aircraftid) {
@@ -406,7 +386,6 @@ public class Aluminum {
      * This method returns the value of the database column aluminum.TH_MIN
      *
      * @return the value of aluminum.TH_MIN
-     *
      * @mbggenerated
      */
     public String getThMin() {
@@ -418,7 +397,6 @@ public class Aluminum {
      * This method sets the value of the database column aluminum.TH_MIN
      *
      * @param thMin the value for aluminum.TH_MIN
-     *
      * @mbggenerated
      */
     public void setThMin(String thMin) {
@@ -430,7 +408,6 @@ public class Aluminum {
      * This method returns the value of the database column aluminum.TH_MAX
      *
      * @return the value of aluminum.TH_MAX
-     *
      * @mbggenerated
      */
     public String getThMax() {
@@ -442,7 +419,6 @@ public class Aluminum {
      * This method sets the value of the database column aluminum.TH_MAX
      *
      * @param thMax the value for aluminum.TH_MAX
-     *
      * @mbggenerated
      */
     public void setThMax(String thMax) {
@@ -454,7 +430,6 @@ public class Aluminum {
      * This method returns the value of the database column aluminum.BASIS
      *
      * @return the value of aluminum.BASIS
-     *
      * @mbggenerated
      */
     public String getBasis() {
@@ -466,7 +441,6 @@ public class Aluminum {
      * This method sets the value of the database column aluminum.BASIS
      *
      * @param basis the value for aluminum.BASIS
-     *
      * @mbggenerated
      */
     public void setBasis(String basis) {
@@ -478,7 +452,6 @@ public class Aluminum {
      * This method returns the value of the database column aluminum.DIRECTION
      *
      * @return the value of aluminum.DIRECTION
-     *
      * @mbggenerated
      */
     public String getDirection() {
@@ -490,7 +463,6 @@ public class Aluminum {
      * This method sets the value of the database column aluminum.DIRECTION
      *
      * @param direction the value for aluminum.DIRECTION
-     *
      * @mbggenerated
      */
     public void setDirection(String direction) {
@@ -502,7 +474,6 @@ public class Aluminum {
      * This method returns the value of the database column aluminum.E
      *
      * @return the value of aluminum.E
-     *
      * @mbggenerated
      */
     public String getE() {
@@ -514,7 +485,6 @@ public class Aluminum {
      * This method sets the value of the database column aluminum.E
      *
      * @param e the value for aluminum.E
-     *
      * @mbggenerated
      */
     public void setE(String e) {
@@ -526,7 +496,6 @@ public class Aluminum {
      * This method returns the value of the database column aluminum.E_C
      *
      * @return the value of aluminum.E_C
-     *
      * @mbggenerated
      */
     public String geteC() {
@@ -538,7 +507,6 @@ public class Aluminum {
      * This method sets the value of the database column aluminum.E_C
      *
      * @param eC the value for aluminum.E_C
-     *
      * @mbggenerated
      */
     public void seteC(String eC) {
@@ -550,7 +518,6 @@ public class Aluminum {
      * This method returns the value of the database column aluminum.F_CY
      *
      * @return the value of aluminum.F_CY
-     *
      * @mbggenerated
      */
     public String getfCy() {
@@ -562,7 +529,6 @@ public class Aluminum {
      * This method sets the value of the database column aluminum.F_CY
      *
      * @param fCy the value for aluminum.F_CY
-     *
      * @mbggenerated
      */
     public void setfCy(String fCy) {
@@ -574,7 +540,6 @@ public class Aluminum {
      * This method returns the value of the database column aluminum.F_SU
      *
      * @return the value of aluminum.F_SU
-     *
      * @mbggenerated
      */
     public String getfSu() {
@@ -586,7 +551,6 @@ public class Aluminum {
      * This method sets the value of the database column aluminum.F_SU
      *
      * @param fSu the value for aluminum.F_SU
-     *
      * @mbggenerated
      */
     public void setfSu(String fSu) {
@@ -598,7 +562,6 @@ public class Aluminum {
      * This method returns the value of the database column aluminum.G
      *
      * @return the value of aluminum.G
-     *
      * @mbggenerated
      */
     public String getG() {
@@ -610,7 +573,6 @@ public class Aluminum {
      * This method sets the value of the database column aluminum.G
      *
      * @param g the value for aluminum.G
-     *
      * @mbggenerated
      */
     public void setG(String g) {
@@ -622,7 +584,6 @@ public class Aluminum {
      * This method returns the value of the database column aluminum.NU
      *
      * @return the value of aluminum.NU
-     *
      * @mbggenerated
      */
     public String getNu() {
@@ -634,7 +595,6 @@ public class Aluminum {
      * This method sets the value of the database column aluminum.NU
      *
      * @param nu the value for aluminum.NU
-     *
      * @mbggenerated
      */
     public void setNu(String nu) {

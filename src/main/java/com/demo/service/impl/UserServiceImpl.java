@@ -4,7 +4,6 @@ import com.demo.dao.UserMapper;
 import com.demo.service.UserService;
 import com.demo.utils.Md5;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 
@@ -13,18 +12,14 @@ import javax.annotation.Resource;
 public class UserServiceImpl implements UserService {
     @Resource
     private UserMapper userMapper;
-    public boolean findUser(String loginName, String password) {
-        String s=new Md5().endode(password);
-        if(userMapper.selectByPrimaryKey(loginName).getPassword().equals(s)){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
 
     @Override
-    public int importExcel(String name, MultipartFile file) {
-        return 0;
+    public boolean findUser(String loginName, String password) {
+        String s = new Md5().endode(password);
+        if (userMapper.selectByPrimaryKey(loginName).getPassword().equals(s)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

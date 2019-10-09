@@ -32,7 +32,7 @@
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
         </dependency>
-<!--        JSON-->
+        <!--        JSON-->
         <dependency>
             <groupId>net.sf.ezmorph</groupId>
             <artifactId>ezmorph</artifactId>
@@ -76,7 +76,19 @@
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>2.0.1</version>
         </dependency>
-<!--        mybatis自动生成代码-->
+        <!--        批量导入导出工具-->
+        <!-- poi3.9：导出excel -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.9</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.9</version>
+        </dependency>
+        <!--        mybatis自动生成代码-->
         <dependency>
             <groupId>org.mybatis.generator</groupId>
             <artifactId>mybatis-generator-core</artifactId>

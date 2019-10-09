@@ -5,9 +5,11 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
 public class Md5 {  //Md5加密
-    public Md5(){}
-    public String endode(String s){
-        String str="";
+    public Md5() {
+    }
+
+    public String endode(String s) {
+        String str = "";
         //MD5加密验证
         try {
             MessageDigest md = MessageDigest.getInstance("md5");

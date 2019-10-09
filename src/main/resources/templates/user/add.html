@@ -19,17 +19,17 @@
                 <legend><h2>基本信息</h2></legend>
             </fieldset>
 
-            <form class="layui-form" th:action="@{/user}"  method="post" id="form">
-                <input type="hidden" name="_method"  value="put" th:if="${user!=null}"/>
-                <input type="hidden" name="loginName"  th:value="${session.loginName}"/>
+            <form class="layui-form" th:action="@{/user}" method="post" id="form">
+                <input type="hidden" name="_method" value="put" th:if="${user!=null}"/>
+                <input type="hidden" name="userId" th:value="${session.user.userId}"/>
                 <div class="layui-form-item">
                     <div class="layui-inline">
                         <label class="layui-form-label"><span style="color: red; ">*</span>登陆账号</label>
                         <div class="layui-input-block">
-                            <input type="text" name="loginName" lay-verify="required" ay-reqtext="登陆账号是必填项，岂能为空？"
-                                   th:if="${user!=null}" th:value="${user.loginName}" autocomplete="off"
+                            <input type="text" name="userId" lay-verify="required" ay-reqtext="登陆账号是必填项，岂能为空？"
+                                   th:if="${user!=null}" th:value="${user.userId}" autocomplete="off"
                                    class="layui-input" disabled>
-                            <input type="text" name="loginName" lay-verify="required" ay-reqtext="登陆账号是必填项，岂能为空？"
+                            <input type="text" name="userId" lay-verify="required" ay-reqtext="登陆账号是必填项，岂能为空？"
                                    th:unless="${user!=null}" autocomplete="off" placeholder="请输入登陆账号"
                                    class="layui-input">
                         </div>
@@ -103,8 +103,8 @@
     </div>
 </div>
 <script>
-    layui.use(['form', 'layedit', 'laydate', 'jquery','element'], function () {
-        var $= layui.jquery;
+    layui.use(['form', 'layedit', 'laydate', 'jquery', 'element'], function () {
+        var $ = layui.jquery;
         var form = layui.form
             , layer = layui.layer
             , layedit = layui.layedit

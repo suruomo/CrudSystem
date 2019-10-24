@@ -7,12 +7,12 @@
     <meta name="author" content="">
     <title>登录页</title>
     <!-- Bootstrap core CSS -->
-    <link href="static/asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}"
+    <link th:href="@{static/asserts/css/bootstrap.min.css}"
           rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="static/asserts/css/signin.css" th:href="@{/static/asserts/css/signin.css}" rel="stylesheet">
 </head>
-<body class="text-center" background="images/HJl7fh64hz.jpg" style="background-size:100% 100%;">
+<body class="text-center" background="static/images/HJl7fh64hz.jpg" style="background-size:100% 100%;">
 <form class="form-signin" th:action="@{/user/login}" method="post">
     <h1 class="h3 mb-3 font-weight-normal" th:text="#{login.tip}">Please sign in</h1>
     <!--判断-->

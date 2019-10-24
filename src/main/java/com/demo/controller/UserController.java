@@ -2,12 +2,11 @@ package com.demo.controller;
 
 import com.demo.dao.UserMapper;
 import com.demo.model.User;
-import com.demo.utils.UploadFile;
+import com.demo.service.UserService;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.sf.json.JSONArray;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,13 +21,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author 苏若墨
+ */
 @Controller
 public class UserController {
 
     @Resource
-    UserMapper userMapper;
+    private UserMapper userMapper;
 
-    UploadFile uploadFile;
+    @Resource
+    private UserService userService;
+
 
     /**
      * 查询所有用户返回列表页面
@@ -74,8 +78,6 @@ public class UserController {
      */
     @PostMapping("/user")
     public String addUser(User user) {
-        //来到员工列表页面
-        System.out.println("保存的员工信息：" + user.getEmail());
         //保存员工，默认密码为1
         user.setPassword("xMpCOKC5I4INzFCab3WEmw==");
         userMapper.insert(user);
@@ -131,17 +133,17 @@ public class UserController {
      * 员工批量导入模板下载
      */
     @GetMapping("/download/userTemplate")
-    public void downloadUserTemplate(HttpServletResponse response, HttpServletRequest request) throws IOException {
+    public void downloadUserTemplate(HttpServletResponse response) throws IOException {
         //获取输入流，原始模板位置
-        String filePath = getClass().getResource("/templates/template/metal.xlsx").getPath();
+        String filePath = getClass().getResource("/templates/download/sys_user.xlsx").getPath();
         InputStream bis = new BufferedInputStream(new FileInputStream(new File(filePath)));
         //假如以中文名下载的话，设置下载文件名称
-        String filename = "金属数据导入模板.xls";
+        String filename = "人员信息导入模板.xls";
         //转码，免得文件名中文乱码
         filename = URLEncoder.encode(filename, "UTF-8");
         //设置文件下载头
         response.addHeader("Content-Disposition", "attachment;filename=" + filename);
-        //1.设置文件ContentType类型，这样设置，会自动判断下载文件类型
+        //设置文件ContentType类型，这样设置，会自动判断下载文件类型
         response.setContentType("multipart/form-data");
         BufferedOutputStream out = new BufferedOutputStream(response.getOutputStream());
         int len = 0;
@@ -164,7 +166,8 @@ public class UserController {
         try {
             if (file != null) {
                 //成功上传
-                int result = uploadFile.uploadUser(file, file.getName());
+                String fileName=file.getOriginalFilename();
+                userService.uploadUser(file,fileName);
                 return 1;
             } else {
                 //文件为空

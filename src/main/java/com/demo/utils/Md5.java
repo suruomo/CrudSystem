@@ -4,6 +4,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
+/**
+ * @author 苏若墨
+ */
 public class Md5 {  //Md5加密
     public Md5() {
     }

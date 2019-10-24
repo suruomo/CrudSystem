@@ -111,8 +111,8 @@ public class UserController {
      * 员工删除
      */
     @PostMapping("/user/{id}")
-    public String deleteUser(@PathVariable("id") String loginName) {
-        userMapper.deleteByPrimaryKey(loginName);
+    public String deleteUser(@PathVariable("id") String userId) {
+        userMapper.deleteByPrimaryKey(userId);
         return "redirect:/users";
     }
 

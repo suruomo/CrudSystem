@@ -86,9 +86,10 @@
             var data = obj.data;
             if (obj.event === 'del') {
                 layer.confirm('真的删除行么', function (index) {
+                    alert(data.userId)
                     layer.msg('删除中...', {icon: 16, shade: 0.3, time: 3000});
                     $.ajax({
-                        url: '/user/' + data.loginName,
+                        url: '/user/' + data.userId,
                         method: 'post',
                         dataType: 'text',
                         success: function (data) {

@@ -13,7 +13,7 @@
     <link href="static/asserts/css/signin.css" th:href="@{/static/asserts/css/signin.css}" rel="stylesheet">
 </head>
 <body class="text-center" background="static/images/HJl7fh64hz.jpg" style="background-size:100% 100%;">
-<form class="form-signin" th:action="@{/user/login}" method="post">
+<form  th:action="@{/user/login}" method="post">
     <h1 class="h3 mb-3 font-weight-normal" th:text="#{login.tip}">Please sign in</h1>
     <!--判断-->
     <p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
@@ -21,8 +21,8 @@
     <input type="text" name="username" class="form-control" placeholder="Username" th:placeholder="#{login.username}"
            required="" autofocus="">
     <label class="sr-only" th:text="#{login.password}">Password</label>
-    <input type="password" name="password" class="form-control" placeholder="Password"
-           th:placeholder="#{login.password}" required="">
+    <input type="password" name="password" class="form-control" placeholder="P assword"
+           th:placeholder="#{login.password}" required="" >
     <div class="checkbox mb-3">
         <label>
             <input type="checkbox" value="remember-me"/> [[#{login.remember}]]

@@ -29,8 +29,7 @@
     </div>
 </div>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-xs" lay-event="export">导出MAT 1</a>
 </script>
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
@@ -64,9 +63,6 @@
                     {type: 'checkbox', fixed: 'left'}
                     , {field: 'csmmbrName', width: 350, title: '编号', sort: true}
                     , {field: 'temperature', width: 100, title: '温度'}
-                    , {field: 'form', width: 80, title: '来源', sort: true}
-                    , {field: 'books', width: 100, title: '书籍'}
-                    , {field: 'aircraftid', title: '飞机', width: 100} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
                     , {field: 'density', title: '密度', sort: true}
                     , {field: 'thMin', title: '最小', sort: true}
                     , {field: 'thMax', title: '最大', sort: true}
@@ -104,7 +100,7 @@
                 });
             } else {
                 // layer.alert('编辑行：<br>' + JSON.stringify(data));
-                window.location.href = "/user/" + data.loginName;
+                window.location.href = "/metal/export/mat1/" + 1;
             }
         });
         //监听顶部操作工具条

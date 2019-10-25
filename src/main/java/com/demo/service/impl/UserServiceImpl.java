@@ -11,6 +11,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,6 +20,9 @@ import java.io.IOException;
 import java.io.InputStream;
 
 
+/**
+ * @author 苏若墨
+ */
 @Service
 public class UserServiceImpl implements UserService {
     @Resource
@@ -27,11 +31,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean findUser(String loginName, String password) {
         String s = new Md5().endode(password);
-        if (userMapper.selectByPrimaryKey(loginName).getPassword().equals(s)) {
+//        if (userMapper.selectByPrimaryKey(loginName).getPassword().equals(s)) {
             return true;
-        } else {
-            return false;
-        }
+//        } else {
+//            return false;
+//        }
     }
 
     @Override

@@ -31,6 +31,7 @@ public class LoginController {
     @PostMapping(value = {"/user/login"})
     public String doLogin(@RequestParam("username") String loginName, @RequestParam("password") String password,
                           HttpServletRequest request, Model model) {
+        System.out.println(loginName+password);
         if (userService.findUser(loginName, password)) {
             User user = userMApper.selectByPrimaryKey(loginName);
             request.getSession().setAttribute("user", user);

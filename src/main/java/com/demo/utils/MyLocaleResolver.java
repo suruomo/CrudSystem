@@ -1,4 +1,4 @@
-package com.demo.component;
+package com.demo.utils;
 
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.LocaleResolver;

@@ -13,7 +13,7 @@
     <link href="static/asserts/css/signin.css" th:href="@{/static/asserts/css/signin.css}" rel="stylesheet">
 </head>
 <body class="text-center" background="static/images/HJl7fh64hz.jpg" style="background-size:100% 100%;">
-<form  th:action="@{/user/login}" method="post">
+<form  th:action="@{/doLogin}" method="post">
     <h1 class="h3 mb-3 font-weight-normal" th:text="#{login.tip}">Please sign in</h1>
     <!--判断-->
     <p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>

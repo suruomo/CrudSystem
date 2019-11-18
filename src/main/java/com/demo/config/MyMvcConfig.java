@@ -1,12 +1,10 @@
 package com.demo.config;
 
 
-import com.demo.component.LoginHandlerInterceptor;
 import com.demo.component.MyLocaleResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -41,16 +39,7 @@ public class MyMvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
     }
 
-    /**
-     * 注册拦截器,实现登陆拦截
-     */
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        //静态资源；  *.css , *.js
-        //SpringBoot已经做好了静态资源映射
-        registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
-                .excludePathPatterns("/", "/index", "/user/login", "/static/**");
-    }
+
 
     @Bean
     public LocaleResolver localeResolver() {

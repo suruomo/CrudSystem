@@ -1,6 +1,5 @@
 package com.demo.service.impl;
 
-import com.alibaba.druid.sql.visitor.functions.Char;
 import com.demo.dao.UserMapper;
 import com.demo.model.User;
 import com.demo.service.UserService;
@@ -11,7 +10,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,18 +27,7 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public boolean findUser(String loginName, String password) {
-        String s = new Md5().endode(password);
-//        if (userMapper.selectByPrimaryKey(loginName).getPassword().equals(s)) {
-            return true;
-//        } else {
-//            return false;
-//        }
-    }
-
-    @Override
     public void uploadUser(MultipartFile file, String fileName) throws IOException {
-        System.out.println("进来了");
         boolean isExcel2003 = true;
         int str = 0;
         if (fileName.matches("^.+\\.(?i)(xlsx)$")) {

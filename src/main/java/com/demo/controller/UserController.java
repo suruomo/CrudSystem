@@ -54,7 +54,8 @@ public class UserController {
         Map<String, Object> map = new HashMap();
         //返回Json
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);  //json内对象不为空
+        //json内对象不为空
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         String data = mapper.writeValueAsString(users);
         JSONArray json = JSONArray.fromObject(data);
         map.put("code", 0);

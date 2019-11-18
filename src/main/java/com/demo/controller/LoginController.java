@@ -39,7 +39,7 @@ public class LoginController {
 
     @PostMapping(value = {"/doLogin"})
     public String doLogin(@RequestParam("username") String userId, @RequestParam("password") String password,
-                          HttpServletRequest request,Model model) {
+                          @RequestParam("rememberMe")String rememberMe, HttpServletRequest request,Model model) {
         /**
          * 使用Shiro编写认证操作
          */
@@ -47,7 +47,7 @@ public class LoginController {
         Subject subject= SecurityUtils.getSubject();
         //2.获取MD5加密后密码，封装用户数据
         password= new Md5().endode(password);
-        UsernamePasswordToken token=new UsernamePasswordToken(userId,password);
+        UsernamePasswordToken token=new UsernamePasswordToken(userId,password,rememberMe);
         //3.执行登陆方法
         try{
             //登陆成功,跳转主页面

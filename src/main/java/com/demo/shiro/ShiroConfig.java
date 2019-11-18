@@ -1,8 +1,11 @@
 package com.demo.shiro;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
+import org.apache.shiro.codec.Base64;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.SimpleCookie;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,7 +47,7 @@ public class ShiroConfig {
 //        filterMap.put("/update", "perms[user:update]");
 
         //设置拦截页面:拦截user目录下所有页面，要写在最后面，否则全部拦截
-        filterMap.put("/*", "authc");
+        filterMap.put("/*", "user");
         //修改拦截跳转页面
         shiroFilterFactoryBean.setLoginUrl("/");
         //设置未授权提示页面
@@ -59,9 +62,34 @@ public class ShiroConfig {
     @Bean("securityManager")
     public DefaultWebSecurityManager getDefaultWebSecurityManager(@Qualifier("userRealm") UserRealm userRealm) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        //关联realm
+        //关联realm实现拦截和授权
         securityManager.setRealm(userRealm);
+        //关联cookie记住我
+        securityManager.setRememberMeManager(rememberMeManager());
         return securityManager;
+    }
+    /**
+     * cookie对象
+     * @return
+     */
+    public SimpleCookie rememberMeCookie() {
+        // 设置cookie名称，对应login.html页面的<input type="checkbox" name="rememberMe"/>
+        SimpleCookie cookie = new SimpleCookie("rememberMe");
+        // 设置cookie的过期时间，单位为秒，这里为一天
+        cookie.setMaxAge(86400);
+        return cookie;
+    }
+
+    /**
+     * cookie管理对象
+     * @return
+     */
+    public CookieRememberMeManager rememberMeManager() {
+        CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
+        cookieRememberMeManager.setCookie(rememberMeCookie());
+        // rememberMe cookie加密的密钥
+        cookieRememberMeManager.setCipherKey(Base64.decode("4AvVhmFLUs0KTA3Kprsdag=="));
+        return cookieRememberMeManager;
     }
 
     /**

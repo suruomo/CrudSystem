@@ -9,6 +9,7 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,9 +18,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.net.HttpCookie;
 
 
 /**
@@ -28,18 +31,18 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class LoginController {
     @Resource
-    private UserMapper userMApper;
+    private UserMapper userMapper;
     @Resource
     private UserServiceImpl userService;
 
-    @GetMapping(value = {"/"})
+    @GetMapping(value = {"/","index"})
     public String hello() {
         return "login";
     }
 
     @PostMapping(value = {"/doLogin"})
     public String doLogin(@RequestParam("username") String userId, @RequestParam("password") String password,
-                          @RequestParam("rememberMe")String rememberMe, HttpServletRequest request,Model model) {
+                         HttpServletRequest request,HttpServletResponse response,Model model) {
         /**
          * 使用Shiro编写认证操作
          */
@@ -47,13 +50,17 @@ public class LoginController {
         Subject subject= SecurityUtils.getSubject();
         //2.获取MD5加密后密码，封装用户数据
         password= new Md5().endode(password);
-        UsernamePasswordToken token=new UsernamePasswordToken(userId,password,rememberMe);
-        //3.执行登陆方法
+        boolean rm=true;
+        if(request.getParameter("rememberMe")==null){
+            rm=false;
+        }
+        UsernamePasswordToken token=new UsernamePasswordToken(userId,password,rm);
+        System.out.println("rememberMe:"+token);
         try{
-            //登陆成功,跳转主页面
-            subject.login(token);
-            request.getSession().setAttribute("user",userMApper.selectByPrimaryKey(userId));
-            return "redirect:/main";
+            //若当前用户没有授权，进行验证
+            if(!subject.isAuthenticated()){
+                subject.login(token);
+            }
         } catch (UnknownAccountException e) {
             //登陆失败：用户名不存在
             model.addAttribute("msg","用户名不存在");
@@ -69,6 +76,13 @@ public class LoginController {
             model.addAttribute("msg","该账号已锁定，请联系管理员后登陆");
             return "login";
         }
+        request.getSession().setAttribute("user",userMapper.selectByPrimaryKey(userId));
+//        Cookie cookie1=new Cookie("userId",userId);
+//        Cookie cookie2=new Cookie("userName",userMapper.selectByPrimaryKey(userId).getUserName());
+//        response.addCookie(cookie1);
+//        response.addCookie(cookie2);
+
+        return "redirect:/main";
     }
 
     @GetMapping(value = {"/main"})

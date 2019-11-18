@@ -40,6 +40,7 @@ public class ShiroConfig {
         Map<String, String> filterMap = new LinkedHashMap<>();
         //放行首页面
         filterMap.put("/", "anon");
+        filterMap.put("/index", "anon");
         filterMap.put("/doLogin", "anon");
         //授权过滤器:放在所有拦截的上面，否则无效
         //注意：当前授权拦截后，shiro会自动跳转到未授权页面
@@ -48,7 +49,7 @@ public class ShiroConfig {
 
         //设置拦截页面:拦截user目录下所有页面，要写在最后面，否则全部拦截
         filterMap.put("/*", "user");
-        //修改拦截跳转页面
+        //拦截跳转页面
         shiroFilterFactoryBean.setLoginUrl("/");
         //设置未授权提示页面
         shiroFilterFactoryBean.setUnauthorizedUrl("/noAuth");
@@ -82,12 +83,13 @@ public class ShiroConfig {
 
     /**
      * cookie管理对象
+     * 生成rememberMe管理器，而且要将这个rememberMe管理器设置到securityManager中
      * @return
      */
     public CookieRememberMeManager rememberMeManager() {
         CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
         cookieRememberMeManager.setCookie(rememberMeCookie());
-        // rememberMe cookie加密的密钥
+        // rememberMe cookie加密的密钥  建议每个项目都不一样 默认AES算法 密钥长度(128 256 512 位)
         cookieRememberMeManager.setCipherKey(Base64.decode("4AvVhmFLUs0KTA3Kprsdag=="));
         return cookieRememberMeManager;
     }

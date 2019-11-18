@@ -48,6 +48,7 @@ public class LoginController {
          */
         //1.获取Subject
         Subject subject= SecurityUtils.getSubject();
+        System.out.println(subject.getPrincipal());
         //2.获取MD5加密后密码，封装用户数据
         password= new Md5().endode(password);
         boolean rm=true;
@@ -76,17 +77,15 @@ public class LoginController {
             model.addAttribute("msg","该账号已锁定，请联系管理员后登陆");
             return "login";
         }
-        request.getSession().setAttribute("user",userMapper.selectByPrimaryKey(userId));
-//        Cookie cookie1=new Cookie("userId",userId);
-//        Cookie cookie2=new Cookie("userName",userMapper.selectByPrimaryKey(userId).getUserName());
-//        response.addCookie(cookie1);
-//        response.addCookie(cookie2);
-
         return "redirect:/main";
     }
 
     @GetMapping(value = {"/main"})
-    public String index() {
+    public String index(HttpServletRequest request,Model model) {
+        User user= SecurityUtils.getSubject().getPrincipals().oneByType(User.class);
+        System.out.println("name:"+user.getUserName());
+        System.out.println("id:"+user.getUserId());
+        request.getSession().setAttribute("user",user);
         return "main";
     }
 

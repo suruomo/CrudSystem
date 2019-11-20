@@ -7,12 +7,18 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.sf.json.JSONArray;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMailMessage;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -33,6 +39,11 @@ public class UserController {
     @Resource
     private UserService userService;
 
+    @Autowired
+    private JavaMailSender javaMailSender;
+
+    @Value("${spring.mail.username}")
+    private String from;
 
     /**
      * 查询所有用户返回列表页面
@@ -128,6 +139,32 @@ public class UserController {
             userMapper.deleteByPrimaryKey(id[i]);
         }
         return "user/list";
+    }
+
+    /**
+     * 发送邮件
+     */
+    @PostMapping("/mail/{id}")
+    public String sendMail(@PathVariable("id") String userId) {
+        String toMail = userMapper.selectByPrimaryKey(userId).getEmail();
+        MimeMessage message = null;
+        try {
+            message = javaMailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+            helper.setFrom(from);
+            // 接收地址
+            helper.setTo(toMail);
+            // 标题
+            helper.setSubject("通知邮件");
+            // 带HTML格式的内容
+            StringBuffer sb = new StringBuffer("<p style='color:#42b983'>使用Spring Boot发送HTML格式邮件。</p>");
+            helper.setText(sb.toString(), true);
+            javaMailSender.send(message);
+            return "发送成功";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return e.getMessage();
+        }
     }
 
     /**

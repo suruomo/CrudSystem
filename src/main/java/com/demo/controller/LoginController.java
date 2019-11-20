@@ -9,7 +9,6 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,11 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.net.HttpCookie;
 
 
 /**
@@ -48,7 +44,6 @@ public class LoginController {
          */
         //1.获取Subject
         Subject subject= SecurityUtils.getSubject();
-        System.out.println(subject.getPrincipal());
         //2.获取MD5加密后密码，封装用户数据
         password= new Md5().endode(password);
         boolean rm=true;

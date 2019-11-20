@@ -3,6 +3,8 @@ package com.demo.dao;
 import com.demo.model.Log;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * @author 苏若墨
  */
@@ -55,4 +57,6 @@ public interface LogMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(Log record);
+
+    List<Log> getAll(int page, int limit);
 }

@@ -34,6 +34,9 @@
     from sys_log
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="getAll" resultType="com.demo.model.Log">
+    select * from sys_log limit #{page},#{limit}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--
       WARNING - @mbggenerated

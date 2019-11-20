@@ -112,8 +112,14 @@
                             method: 'post',
                             dataType: 'text',
                             success: function (data) {
-                                layer.msg("发送成功");
-                                layer.close(index); //再执行关闭
+                                alert(data);
+                                if(data=="1"){
+                                    layer.msg("发送成功");
+                                    layer.close(index); //再执行关闭
+                                }else{
+                                    layer.msg("发送失败");
+                                    layer.close(index); //再执行关闭
+                                }
                             }
                         });
                     });

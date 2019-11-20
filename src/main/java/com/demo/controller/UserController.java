@@ -1,5 +1,6 @@
 package com.demo.controller;
 
+import com.demo.aop.SystemLog;
 import com.demo.dao.UserMapper;
 import com.demo.model.User;
 import com.demo.service.UserService;
@@ -10,7 +11,6 @@ import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMailMessage;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,6 +48,7 @@ public class UserController {
     /**
      * 查询所有用户返回列表页面
      */
+    @SystemLog(module = "操作：查询所有用户")
     @GetMapping("/users")
     public String list() {
         return "user/list";
@@ -56,6 +57,7 @@ public class UserController {
     /**
      * 查询所有用户返回数据
      */
+    @SystemLog(module = "数据：返回用户数据")
     @ResponseBody
     @GetMapping("/usersData")
     public Map<String, Object> list(@RequestParam("page") int page, @RequestParam("limit") int limit) throws JsonProcessingException {
@@ -79,6 +81,7 @@ public class UserController {
     /**
      * 来到员工添加页面
      */
+    @SystemLog(module = "操作：进入用户添加页面")
     @GetMapping("/user")
     public String toAddPage() {
         return "user/add";
@@ -88,6 +91,7 @@ public class UserController {
      * 员工添加操作
      * SpringMVC自动将请求参数和入参对象的属性进行一一绑定；要求请求参数的名字和javaBean入参的对象里面的属性名是一样的
      */
+    @SystemLog(module = "操作：用户添加")
     @PostMapping("/user")
     public String addUser(User user) {
         //保存员工，默认密码为1
@@ -101,6 +105,7 @@ public class UserController {
     /**
      * 来到修改页面，查出当前员工，在页面回显
      */
+    @SystemLog(module = "操作：进入用户修改页面")
     @GetMapping("/user/{id}")
     public String toEditPage(@PathVariable("id") String userId, Model model) {
         User user = userMapper.selectByPrimaryKey(userId);
@@ -113,6 +118,7 @@ public class UserController {
     /**
      * 员工修改:表单需要提交员工id
      */
+    @SystemLog(module = "操作：用户修改")
     @PutMapping("/user")
     public String updateUser(HttpServletRequest request, User user) {
         userMapper.updateByPrimaryKey(user);
@@ -144,7 +150,9 @@ public class UserController {
     /**
      * 发送邮件
      */
+    @SystemLog(module = "操作：向用户发送邮件")
     @PostMapping("/mail/{id}")
+    @ResponseBody
     public String sendMail(@PathVariable("id") String userId) {
         String toMail = userMapper.selectByPrimaryKey(userId).getEmail();
         MimeMessage message = null;
@@ -160,10 +168,10 @@ public class UserController {
             StringBuffer sb = new StringBuffer("<p style='color:#42b983'>使用Spring Boot发送HTML格式邮件。</p>");
             helper.setText(sb.toString(), true);
             javaMailSender.send(message);
-            return "发送成功";
+            return "1";
         } catch (Exception e) {
             e.printStackTrace();
-            return e.getMessage();
+            return "2";
         }
     }
 

@@ -75,7 +75,15 @@
                     , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 250}
                 ]
             ]
-
+            , done: function (res, curr, count) {
+                $("[data-field = 'sex']").children().each(function () {
+                    if ($(this).text() == '0') {
+                        $(this).text("男");
+                    } else if ($(this).text() == '1') {
+                        $(this).text("女");
+                    }
+                })
+            }
         });
 
         //监听表格复选框选择

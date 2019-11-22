@@ -2,6 +2,7 @@ package com.demo.dao;
 
 import com.demo.model.Aluminum;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.cache.annotation.Cacheable;
 
 import java.util.List;
 import java.util.Map;

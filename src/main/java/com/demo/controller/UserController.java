@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
@@ -60,9 +61,10 @@ public class UserController {
     @SystemLog(module = "数据：返回用户数据")
     @ResponseBody
     @GetMapping("/usersData")
+    @Cacheable(value = "users",key = "#page")
     public Map<String, Object> list(@RequestParam("page") int page, @RequestParam("limit") int limit) throws JsonProcessingException {
         page = (page - 1) * limit;
-        List<User> users = userMapper.getAll(page, limit);
+        List<User> users = userService.getAll(page, limit);
         int count = userMapper.getCount();
         Map<String, Object> map = new HashMap();
         //返回Json

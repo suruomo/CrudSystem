@@ -1,9 +1,14 @@
 package com.demo.service;
 
+import com.demo.model.User;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author 苏若墨
@@ -17,4 +22,5 @@ public interface UserService {
      * @throws IOException
      */
     void uploadUser(MultipartFile file, String fileName) throws IOException;
+    List<User> getAll(int page, int limit);
 }

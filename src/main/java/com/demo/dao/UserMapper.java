@@ -2,6 +2,8 @@ package com.demo.dao;
 
 import com.demo.model.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 
 import java.util.List;
 import java.util.Map;
@@ -9,6 +11,7 @@ import java.util.Map;
 /**
  * @author 苏若墨
  */
+
 @Mapper
 public interface UserMapper {
     /**

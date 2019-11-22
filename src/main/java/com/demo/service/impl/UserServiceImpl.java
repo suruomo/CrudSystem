@@ -3,19 +3,23 @@ package com.demo.service.impl;
 import com.demo.dao.UserMapper;
 import com.demo.model.User;
 import com.demo.service.UserService;
-import com.demo.utils.Md5;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
+import com.alibaba.fastjson.JSON;
 
 
 /**
@@ -25,6 +29,12 @@ import java.io.InputStream;
 public class UserServiceImpl implements UserService {
     @Resource
     private UserMapper userMapper;
+
+    @Autowired
+    RedisTemplate redisTemplate;
+
+    @Autowired
+    StringRedisTemplate stringRedisTemplate;
 
     @Override
     public void uploadUser(MultipartFile file, String fileName) throws IOException {
@@ -79,6 +89,13 @@ public class UserServiceImpl implements UserService {
             //插入数据
             userMapper.insert(user);
         }
+    }
+
+    @Override
+
+    public List<User> getAll(int page, int limit) {
+        List<User> users = userMapper.getAll(page, limit);
+        return users;
     }
 
 }

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.sf.json.JSONArray;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -73,6 +74,7 @@ public class AluminumController {
      */
     @ResponseBody
     @GetMapping("/aluminumData")
+    @Cacheable(value = "aluminums",key = "#page")
     public Map<String, Object> list(@RequestParam("page") int page, @RequestParam("limit") int limit) throws JsonProcessingException {
         page = (page - 1) * limit;
         List<Aluminum> users = aluminumMapper.getAll(page, limit);

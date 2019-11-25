@@ -11,6 +11,7 @@
           rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="static/asserts/css/signin.css" th:href="@{/static/asserts/css/signin.css}" rel="stylesheet">
+    <script th:src="@{/static/jquery-3.4.1.js}"></script>
 </head>
 <body class="text-center" background="static/images/HJl7fh64hz.jpg" style="background-size:100% 100%;">
 <form  th:action="@{/doLogin}" method="post">
@@ -23,6 +24,10 @@
     <label class="sr-only" th:text="#{login.password}">Password</label>
     <input type="password" name="password" class="form-control" placeholder="Password"
            th:placeholder="#{login.password}" required="" >
+    <label class="sr-only" th:text="#{login.verifycode}">VerifyCode</label>
+    <input type="text" name="verifycode" class="form-control" placeholder="Password"
+           th:placeholder="#{login.verifycode}"/><img alt="验证码" th:src="@{/verifycode}" title="点击更换" id="captcha_img"/>
+    (<a href="javascript:void(0)" th:onclick="refresh()">[[#{login.change}]]</a>)<br/>
     <div class="checkbox mb-3">
         <label>
             <input type="checkbox"  name="rememberMe" checked/> [[#{login.remember}]]
@@ -34,5 +39,9 @@
     <a class="btn btn-sm" th:href="@{/index(l='en_US')}">English</a>
 </form>
 </body>
-
+<script type="text/javascript">
+    function refresh() {
+        $("#captcha_img").attr("src", "/verifycode?id=" + new Date() + Math.floor(Math.random() * 24));
+    }
+</script>
 </html>

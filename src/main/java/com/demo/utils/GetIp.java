@@ -1,7 +1,6 @@
 package com.demo.utils;
 
 
-
 import javax.servlet.http.HttpServletRequest;
 
 /**

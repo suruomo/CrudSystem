@@ -4,6 +4,7 @@ import com.demo.dao.UserMapper;
 import com.demo.model.User;
 import com.demo.service.impl.UserServiceImpl;
 import com.demo.utils.Md5;
+import com.demo.utils.VerifyCode;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
@@ -17,8 +18,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 
 /**
@@ -30,15 +36,52 @@ public class LoginController {
     private UserMapper userMapper;
     @Resource
     private UserServiceImpl userService;
+    /**
+     * 验证码
+     */
+    public static final String verifyCode="verifyCode";
 
     @GetMapping(value = {"/","index"})
     public String hello() {
         return "login";
     }
 
+    @GetMapping("/verifycode")
+    public void getVerifyCode(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+
+        // 设置相应类型,告诉浏览器输出的内容为图片
+        response.setContentType("image/jpeg");
+        // 不缓存此内容
+        response.setHeader("Pragma", "No-cache");
+        response.setHeader("Cache-Control", "no-cache");
+        response.setDateHeader("Expire", 0);
+        try {
+            HttpSession session = request.getSession();
+            VerifyCode tool = new VerifyCode();
+            StringBuffer code = new StringBuffer();
+            BufferedImage image = tool.genRandomCodeImage(code);
+            session.removeAttribute(verifyCode);
+            session.setAttribute(verifyCode, code.toString());
+            // 将内存中的图片通过流动形式输出到客户端
+            ImageIO.write(image, "JPEG", response.getOutputStream());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     @PostMapping(value = {"/doLogin"})
     public String doLogin(@RequestParam("username") String userId, @RequestParam("password") String password,
+                          @RequestParam("verifycode") String verifycode,
                          HttpServletRequest request,HttpServletResponse response,Model model) {
+        //校验验证码
+        //session中的验证码
+        String sessionCaptcha = (String) SecurityUtils.getSubject().getSession().getAttribute(verifyCode);
+        if (null == verifycode || !verifycode.equalsIgnoreCase(sessionCaptcha)) {
+            model.addAttribute("msg","验证码错误！");
+            return "login";
+        }
+
         /**
          * 使用Shiro编写认证操作
          */

@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -61,7 +62,7 @@ public class UserController {
     @SystemLog(module = "数据：返回用户数据")
     @ResponseBody
     @GetMapping("/usersData")
-    @Cacheable(value = "users",key = "#page")
+    @CachePut(value = "users",key = "#page")
     public Map<String, Object> list(@RequestParam("page") int page, @RequestParam("limit") int limit) throws JsonProcessingException {
         page = (page - 1) * limit;
         List<User> users = userService.getAll(page, limit);
@@ -96,6 +97,7 @@ public class UserController {
     @SystemLog(module = "操作：用户添加")
     @PostMapping("/user")
     public String addUser(User user) {
+        System.out.println("员工id:"+user.getUserId());
         //保存员工，默认密码为1
         user.setPassword("xMpCOKC5I4INzFCab3WEmw==");
         userMapper.insert(user);
@@ -130,10 +132,11 @@ public class UserController {
     /**
      * 员工删除
      */
-    @PostMapping("/user/{id}")
+    @DeleteMapping("/user/{id}")
+    @ResponseBody
     public String deleteUser(@PathVariable("id") String userId) {
         userMapper.deleteByPrimaryKey(userId);
-        return "redirect:/users";
+        return "success";
     }
 
     /**

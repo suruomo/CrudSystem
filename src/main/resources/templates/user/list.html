@@ -99,7 +99,7 @@
                         layer.msg('删除中...', {icon: 16, shade: 0.3, time: 3000});
                         $.ajax({
                             url: '/user/' + data.userId,
-                            method: 'post',
+                            method: 'delete',
                             dataType: 'text',
                             success: function (data) {
                                 layer.msg("删除成功");

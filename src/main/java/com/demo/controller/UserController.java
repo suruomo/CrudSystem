@@ -7,6 +7,10 @@ import com.demo.service.UserService;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,6 +37,7 @@ import java.util.Map;
  * @author 苏若墨
  */
 @Controller
+@Api(value = "UserController")
 public class UserController {
 
     @Resource
@@ -59,6 +64,10 @@ public class UserController {
     /**
      * 查询所有用户返回数据
      */
+    @ApiOperation(value = "获取用户列表", notes = "根据页码page和每页显示数据条数limit获取用户信息列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", value = "页码", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "limit", value = "每页数据数", required = true, dataType = "int") })
     @SystemLog(module = "数据：返回用户数据")
     @ResponseBody
     @GetMapping("/usersData")
@@ -94,6 +103,8 @@ public class UserController {
      * 员工添加操作
      * SpringMVC自动将请求参数和入参对象的属性进行一一绑定；要求请求参数的名字和javaBean入参的对象里面的属性名是一样的
      */
+    @ApiOperation(value = "新增用户", notes = "根据用户实体创建用户")
+    @ApiImplicitParam(name = "user", value = "用户实体", required = true, dataType = "User")
     @SystemLog(module = "操作：用户添加")
     @PostMapping("/user")
     public String addUser(User user) {
@@ -134,6 +145,8 @@ public class UserController {
      */
     @DeleteMapping("/user/{id}")
     @ResponseBody
+    @ApiOperation(value = "删除用户", notes = "根据用户id删除用户")
+    @ApiImplicitParam(name = "id", value = "用户id", required = true, dataType = "String", paramType = "path")
     public String deleteUser(@PathVariable("id") String userId) {
         userMapper.deleteByPrimaryKey(userId);
         return "success";

@@ -5,6 +5,7 @@ import com.demo.dao.LogMapper;
 import com.demo.model.Log;
 import com.demo.model.User;
 import com.demo.utils.GetIp;
+import org.apache.shiro.SecurityUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -66,7 +67,7 @@ public class LogAspect {
         // 设置IP地址
         sysLog.setIp(getIp.getIpAddr(request));
         // 获取用户
-        User user = (User) request.getSession().getAttribute("user");
+        User user= SecurityUtils.getSubject().getPrincipals().oneByType(User.class);
         sysLog.setUserName(user.getUserName());
         sysLog.setUserId(user.getUserId());
         //获取系统时间

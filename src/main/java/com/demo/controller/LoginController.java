@@ -15,11 +15,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -128,8 +130,8 @@ public class LoginController {
     }
 
     @GetMapping(value = {"/user/exit"})
-    public String doLogout(HttpServletRequest request) {
-        request.getSession().invalidate();
+    public String doLogout(HttpServletRequest request,HttpServletResponse response) {
+        request.getSession().removeAttribute("user");
         return "login";
     }
 }

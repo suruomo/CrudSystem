@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -27,7 +27,8 @@
         <li class="layui-nav-item">
             <a href="javascript:;">
                 <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-              [[${session.user.userName}]]
+<!--                显示用户名-->
+                <span shiro:principal property="userName"/>
             </a>
             <dl class="layui-nav-child">
                 <dd><a href="">基本资料</a></dd>

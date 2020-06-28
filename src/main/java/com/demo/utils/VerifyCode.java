@@ -114,19 +114,5 @@ public class VerifyCode {
         return String.valueOf(RANDOM_STRS.charAt(num));
     }
 
-//    public static void main(String[] args) {
-//        VerifyCode tool = new VerifyCode();
-//        StringBuffer code = new StringBuffer();
-//        BufferedImage image = tool.genRandomCodeImage(code);
-//        System.out.println("random code = " + code);
-//        try {
-//            // 将内存中的图片通过流动形式输出到客户端
-//            ImageIO.write(image, "JPEG", new FileOutputStream(new File(
-//                    "C:\\Users\\suruomo\\Desktop\\random-code.jpg")));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
 }
 
